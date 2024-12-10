@@ -82,6 +82,94 @@ class LinkedList{
         this.size--
         return removedNode.value
     }
+// 0(n)
+    removeValue(value){
+        if(this.isEmpty()){
+            console.log("list is empty");
+            return null
+        }if(this.head.value===value){
+            this.head=this.head.next
+            this.size--
+            return value
+        }else{
+            let prev=this.head
+            while(prev.next && prev.next.value !== value){
+                prev=prev.next
+            }
+            if(prev.next){
+                const removedNode=prev.next
+                prev.next=removedNode.next
+                this.size--
+                return value
+            }
+                return null
+            
+        }
+    }
+
+    search(value){
+        if(this.isEmpty()) {
+            console.log("the list is empty");
+            return -1
+        } 
+            let curr = this.head
+            let i = 0
+            while(curr) {
+                if(curr.value === value) {
+                    console.log("the position of the searched value is ", i);
+                    return i
+                } 
+                    curr = curr.next
+                    i++
+
+                    
+            }
+            return null
+        
+    }
+
+    reverse(){
+        let prev= null
+        let curr = this.head
+       
+        while(curr){
+          let next=curr.next
+          curr.next=prev
+          prev=curr
+          curr=next  
+        }
+       this.head=prev
+    }
+
+    recursivereverse(){
+        let prev=null
+        let curr=this.head
+
+        function rec(curr){
+            if(curr===null){
+                return prev
+            }
+            let next=curr.next
+            curr.next=prev
+            prev=curr
+            return rec(next)
+        }
+
+        
+        rec(curr)
+        this.head=prev
+    }
+    middle(){
+        const node= new Node
+        let fast=this.head
+        let slow= this.head
+    
+        while(fast.next && fast.next.next){
+            slow=slow.next
+            fast=fast.next.next
+        }
+        return slow.value
+    }
 
     print(){
         if(this.isEmpty()){
@@ -125,3 +213,24 @@ list.print()
 
 
 console.log(list.getSize());
+
+
+// console.log("removeValue",list.removeValue(30));
+// list.print()
+
+
+console.log(list.getSize());
+
+// list.search(20)
+// list.search(10)
+
+console.log(list.search(200));
+// list.search(100)
+
+list.print()
+// list.reverse()
+list.recursivereverse()
+list.print()
+  
+
+console.log("Middle:", list.middle());
